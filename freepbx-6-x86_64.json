@@ -1,0 +1,76 @@
+{
+  "builders": [
+    {
+      "accelerator": "kvm",
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort}}/ks6.cfg<enter>"
+      ],
+      "boot_wait": "5s",
+      "disk_interface": "scsi",
+      "disk_size": 5000,
+      "disk_cache": "unsafe",
+      "format": "raw",
+      "headless": true,
+      "http_directory": "http",
+      "iso_checksum": "470c6d2e3387c2e0e405d038f42f6279",
+      "iso_checksum_type": "md5",
+      "iso_url": "http://downloads.freepbxdistro.org/ISO/FreePBX-64bit-6.12.65.iso",
+      "net_device": "virtio-net",
+      "output_directory": "output/freepbx-6-x86_64-qemu/",
+      "machine_type": "pc-i440fx-1.7",
+      "qemuargs": [
+        [
+          "-m",
+          "1024"
+        ],
+        [
+          "-device",
+          "virtio-scsi-pci,id=scsi0"
+        ],
+        [
+          "-drive",
+          "if=none,cache=unsafe,id=drive0,discard=unmap,file=output/freepbx-6-x86_64-qemu/freepbx-6-x86_64.raw"
+        ],
+        [
+          "-device",
+          "scsi-hd,bus=scsi0.0,drive=drive0"
+        ],
+        [
+          "-device",
+          "virtio-net,netdev=user.0"
+        ]
+      ],
+      "shutdown_command": "shutdown -h now",
+      "ssh_password": "packer",
+      "ssh_username": "root",
+      "ssh_wait_timeout": "10000s",
+      "type": "qemu",
+      "vm_name": "freepbx-6-x86_64"
+    }
+  ],
+  "provisioners": [
+    {
+      "scripts": [
+        "scripts/base.sh",
+        "scripts/reboot.sh"
+      ],
+      "type": "shell"
+    },
+    {
+      "scripts": [
+        "scripts/cleanup.sh"
+      ],
+      "pause_before": "30s",
+      "type": "shell"
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "compress",
+        "format": "pgzip",
+        "output": "output/freepbx-6-x86_64-compress/"
+      }
+    ]
+  ]
+}
