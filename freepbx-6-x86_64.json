@@ -68,7 +68,7 @@
     [
       {
         "type": "compress",
-        "format": "pgzip",
+        "format": "bgzf",
         "output": "output/freepbx-6-x86_64-compress/"
       }
     ]
