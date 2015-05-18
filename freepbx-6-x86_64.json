@@ -54,6 +54,7 @@
       {
         "type": "compress",
         "format": "bgzf",
+        "metadata": true,
         "output": "output/freepbx-6-x86_64-compress/"
       }
     ]
