@@ -6,7 +6,7 @@
         "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort}}/ks6.cfg<enter>"
       ],
       "boot_wait": "5s",
-      "disk_interface": "scsi",
+      "disk_interface": "virtio-scsi",
       "disk_size": 5000,
       "disk_cache": "unsafe",
       "disk_discard": "unmap",
