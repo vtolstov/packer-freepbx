@@ -52,7 +52,7 @@ cat <<EOF > /etc/fstab
 # that works even if disks are added and removed. See fstab(5).
 #
 # <file system> <mount point>   <type>          <options>                        <dump>  <pass>
-/dev/sda1       /               ext4    defaults,relatime,discard,errors=panic      0       1
+/dev/sda1       /               ext4    defaults,relatime,errors=panic      0       1
 EOF
 
 for p in dracut-config-rescue plymouth-scripts alsa-tools-firmware alsa-firmware plymouth plymouth-core-libs btrfs-progs iwl105-firmware iwl7260-firmware alsa xfsprogs iwl2030-firmware iwl6000g2b-firmware iwl2000-firmware iwl3160-firmware; do
